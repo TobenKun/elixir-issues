@@ -1,5 +1,4 @@
 defmodule TableFormatterTest do
-  # 테스트 기능을 가져온다
   use ExUnit.Case
   # 표준 출력으로 나가는 값을 가져올 수 있게 한다
   import ExUnit.CaptureIO
