@@ -1,4 +1,5 @@
 defmodule Issues.CLI do
+  import Issues.TableFormatter, only: [print_table_for_columns: 2]
   @default_count 4
   @moduledoc """
   명령줄 파싱을 수행한 뒤, 각종 함수를 호출해

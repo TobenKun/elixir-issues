@@ -25,7 +25,7 @@ defmodule Issues.TableFormatter do
   end
 
   def format_for(column_widths) do
-    map_join(column_widths, "|", fn width -> "~-#{width}s" end) <> "~n"
+    map_join(column_widths, " | ", fn width -> "~-#{width}s" end) <> "~n"
   end
 
   def separator(column_widths) do
@@ -34,7 +34,7 @@ defmodule Issues.TableFormatter do
 
   def puts_in_columns(data_by_columns, format) do
     data_by_columns
-    |> List.zip()
+    |> Enum.zip()
     |> map(&Tuple.to_list/1)
     |> each(&puts_one_line_in_columns(&1, format))
   end
