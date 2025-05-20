@@ -21,3 +21,6 @@ issues-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+# binary file
+issues

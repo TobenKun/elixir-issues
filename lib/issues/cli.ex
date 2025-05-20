@@ -5,7 +5,7 @@ defmodule Issues.CLI do
   명령줄 파싱을 수행한 뒤, 각종 함수를 호출해
   깃허브 프로젝트의 최근 _n_개 이슈를 표 형식으로 만들어 출력한다.
   """
-  def run(argv) do
+  def main(argv) do
     argv
     |> parse_args
     |> process
@@ -50,7 +50,6 @@ defmodule Issues.CLI do
     |> decode_response()
     |> sort_into_descending_order()
     |> last(count)
-    # |> format
     |> print_table_for_columns(["number", "created_at", "title"])
   end
 
@@ -72,20 +71,5 @@ defmodule Issues.CLI do
     list
     |> Enum.take(count)
     |> Enum.reverse()
-  end
-
-  # 이후에 모듈 분리 ㄱㄱ
-  def format(list) do
-    IO.puts("#      | created_at          | title")
-    IO.puts("-------+---------------------+-----------------------------------")
-
-    for line <- list do
-      IO.write(line["number"] |> Integer.to_string() |> String.pad_trailing(7))
-      IO.write("|")
-      IO.write(line["created_at"] |> String.pad_trailing(21))
-      IO.write("|")
-      IO.write(line["title"] |> String.pad_trailing(35))
-      IO.puts("")
-    end
   end
 end
