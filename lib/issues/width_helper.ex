@@ -1,4 +1,4 @@
-defmodule WidthHelper do
+defmodule Issues.WidthHelper do
   def visual_length(str) do
     String.codepoints(str)
     |> Enum.reduce(0, fn cp, acc ->

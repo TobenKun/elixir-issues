@@ -3,7 +3,7 @@ defmodule Issues.TableFormatter do
 
   def print_table_for_columns(rows, headers) do
     with data_by_columns = split_into_columns(rows, headers),
-         column_widths = widths_of(data_by_columns) do
+         column_widths = widths_of(data_by_columns, headers) do
       puts_one_line_in_columns(headers, column_widths)
       IO.puts(separator(column_widths))
       puts_in_columns(data_by_columns, column_widths)
@@ -19,8 +19,13 @@ defmodule Issues.TableFormatter do
   def printable(str) when is_binary(str), do: str
   def printable(str), do: to_string(str)
 
-  def widths_of(columns) do
-    for column <- columns, do: column |> map(&WidthHelper.visual_length/1) |> max
+  def widths_of(columns, headers) do
+    Enum.zip(columns, headers)
+    |> Enum.map(fn {column, header} ->
+      [to_string(header) | column]
+      |> map(&Issues.WidthHelper.visual_length/1)
+      |> max()
+    end)
   end
 
   def format_for(column_widths) do
@@ -46,9 +51,8 @@ defmodule Issues.TableFormatter do
     |> IO.puts()
   end
 
-  # 패딩 함수: 문자열 오른쪽에 (width - visual_length) 만큼 공백 추가
   def pad_to_width(str, width) do
-    length = WidthHelper.visual_length(str)
+    length = Issues.WidthHelper.visual_length(str)
     padding_size = width - length
     padding = String.duplicate(" ", max(padding_size, 0))
     str <> padding
