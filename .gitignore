@@ -23,4 +23,5 @@ issues-*.tar
 /tmp/
 
 # binary file
-issues
+/issues
+!/issues/
