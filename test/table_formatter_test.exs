@@ -25,7 +25,9 @@ defmodule TableFormatterTest do
   end
 
   test "컬럼의 너비" do
-    widths = TF.widths_of(split_with_three_columns())
+    # 함수를 수정하여 라벨을 함께 전달
+    # 라벨이 더 긴 경우 라벨의 너비를 가져온다
+    widths = TF.widths_of(split_with_three_columns(), ["L1", "L2", "L3"])
     assert widths == [5, 6, 7]
   end
 
